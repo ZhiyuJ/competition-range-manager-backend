@@ -1,20 +1,13 @@
-package cn.edu.sdu.ise.labs.model;
+package cn.edu.sdu.ise.labs.vo;
 
 import lombok.Data;
 
-import java.util.Date;
-
 /**
- * @author jzhy36
- * @Description: 场地实体类
+ * @author 姜治羽
+ * @create 2020-04-19 17:39
  */
 @Data
-public class Range {
-    /**
-     * 主键id
-     */
-    private Integer id;
-
+public class RangeVO {
     /**
      * 场地编码
      */
@@ -26,14 +19,19 @@ public class Range {
     private String rangeName;
 
     /**
-     * 场地地点
+     * 位置
      */
     private String rangeLocation;
 
     /**
-     * 开放状态
+     * 状态编码
      */
     private Integer status;
+
+    /**
+     * 状态描述
+     */
+    private String statusDesc;
 
     /**
      * 关闭原因
@@ -48,12 +46,7 @@ public class Range {
     /**
      * 创建时间
      */
-    private Date createdAt;
-
-    /**
-     * 更新时间
-     */
-    private Date updatedAt;
+    private String createdAt;
 
     /**
      * 创建人
@@ -61,8 +54,12 @@ public class Range {
     private String createdBy;
 
     /**
+     * 更新时间
+     */
+    private String updatedAt;
+
+    /**
      * 更新人
      */
     private String updatedBy;
-
 }

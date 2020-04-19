@@ -36,4 +36,9 @@ public class Token {
      * 上次动作
      */
     private Date lastAction;
+
+    /**
+     * 场地编码
+     */
+    private String rangeCode;
 }

@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.sdu.ise.labs.dao.RangeMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.sdu.ise.labs.model.Range" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="range_code" property="rangeCode" jdbcType="VARCHAR" />
-    <result column="range_name" property="rangeName" jdbcType="VARCHAR" />
-    <result column="range_location" property="rangeLocation" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="INTEGER" />
-    <result column="close_reason" property="closeReason" jdbcType="VARCHAR" />
-    <result column="description" property="description" jdbcType="VARCHAR" />
-    <result column="created_at" property="createdAt" jdbcType="TIMESTAMP" />
-    <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP" />
-    <result column="created_by" property="createdBy" jdbcType="VARCHAR" />
-    <result column="updated_by" property="updatedBy" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="cn.edu.sdu.ise.labs.dao.RangeMapper">
+    <resultMap id="BaseResultMap" type="cn.edu.sdu.ise.labs.model.Range">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="range_code" property="rangeCode" jdbcType="VARCHAR"/>
+        <result column="range_name" property="rangeName" jdbcType="VARCHAR"/>
+        <result column="range_location" property="rangeLocation" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="close_reason" property="closeReason" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+        <result column="created_by" property="createdBy" jdbcType="VARCHAR"/>
+        <result column="updated_by" property="updatedBy" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, range_code, range_name, range_location, status, close_reason, description, created_at, 
     updated_at, created_by, updated_by
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from range
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from range
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from range
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="cn.edu.sdu.ise.labs.model.Range" >
+    <insert id="insert" parameterType="cn.edu.sdu.ise.labs.model.Range">
     insert into range (id, range_code, range_name, 
       range_location, status, close_reason, 
       description, created_at, updated_at, 
@@ -38,116 +38,8 @@
       #{description,jdbcType=VARCHAR}, #{createdAt,jdbcType=TIMESTAMP}, #{updatedAt,jdbcType=TIMESTAMP}, 
       #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="cn.edu.sdu.ise.labs.model.Range" >
-    insert into range
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="rangeCode != null" >
-        range_code,
-      </if>
-      <if test="rangeName != null" >
-        range_name,
-      </if>
-      <if test="rangeLocation != null" >
-        range_location,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="closeReason != null" >
-        close_reason,
-      </if>
-      <if test="description != null" >
-        description,
-      </if>
-      <if test="createdAt != null" >
-        created_at,
-      </if>
-      <if test="updatedAt != null" >
-        updated_at,
-      </if>
-      <if test="createdBy != null" >
-        created_by,
-      </if>
-      <if test="updatedBy != null" >
-        updated_by,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="rangeCode != null" >
-        #{rangeCode,jdbcType=VARCHAR},
-      </if>
-      <if test="rangeName != null" >
-        #{rangeName,jdbcType=VARCHAR},
-      </if>
-      <if test="rangeLocation != null" >
-        #{rangeLocation,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="closeReason != null" >
-        #{closeReason,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="createdAt != null" >
-        #{createdAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedAt != null" >
-        #{updatedAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null" >
-        #{createdBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updatedBy != null" >
-        #{updatedBy,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.edu.sdu.ise.labs.model.Range" >
-    update range
-    <set >
-      <if test="rangeCode != null" >
-        range_code = #{rangeCode,jdbcType=VARCHAR},
-      </if>
-      <if test="rangeName != null" >
-        range_name = #{rangeName,jdbcType=VARCHAR},
-      </if>
-      <if test="rangeLocation != null" >
-        range_location = #{rangeLocation,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="closeReason != null" >
-        close_reason = #{closeReason,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
-      </if>
-      <if test="createdAt != null" >
-        created_at = #{createdAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatedAt != null" >
-        updated_at = #{updatedAt,jdbcType=TIMESTAMP},
-      </if>
-      <if test="createdBy != null" >
-        created_by = #{createdBy,jdbcType=VARCHAR},
-      </if>
-      <if test="updatedBy != null" >
-        updated_by = #{updatedBy,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="cn.edu.sdu.ise.labs.model.Range" >
+
+    <update id="updateByPrimaryKey" parameterType="cn.edu.sdu.ise.labs.model.Range">
     update range
     set range_code = #{rangeCode,jdbcType=VARCHAR},
       range_name = #{rangeName,jdbcType=VARCHAR},
@@ -161,4 +53,13 @@
       updated_by = #{updatedBy,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+    <!-- 获取场地详情 -->
+    <select id="listByCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from range
+        where
+        range_code=#{rangeCode}
+    </select>
 </mapper>

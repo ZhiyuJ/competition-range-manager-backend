@@ -1,125 +1,73 @@
 package cn.edu.sdu.ise.labs.model;
 
+import lombok.Data;
+
 import java.util.Date;
 
+/**
+ * @author jzhy36
+ * @Description: 比赛项目实体类
+ */
+@Data
 public class CompetitionEvent {
+    /**
+     * 主键id
+     */
     private Integer id;
 
+    /**
+     * 比赛项目编码
+     */
     private String competitionEventCode;
 
+    /**
+     * 比赛项目名称
+     */
     private String competitionEventName;
 
+    /**
+     * 组别
+     */
     private Integer suiteType;
 
+    /**
+     * 场地编码
+     */
     private String rangeCode;
 
+    /**
+     * 计划开始日期
+     */
     private Date planStartAt;
 
+    /**
+     * 计划结束日期
+     */
     private Date planEndAt;
 
+    /**
+     * 当前状态
+     */
     private Integer status;
 
+    /**
+     * 创建时间
+     */
     private Date createdAt;
 
+    /**
+     * 更新时间
+     */
     private Date updatedAt;
 
+    /**
+     * 创建人
+     */
     private String createdBy;
 
+    /**
+     * 更新人
+     */
     private String updatedBy;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCompetitionEventCode() {
-        return competitionEventCode;
-    }
-
-    public void setCompetitionEventCode(String competitionEventCode) {
-        this.competitionEventCode = competitionEventCode == null ? null : competitionEventCode.trim();
-    }
-
-    public String getCompetitionEventName() {
-        return competitionEventName;
-    }
-
-    public void setCompetitionEventName(String competitionEventName) {
-        this.competitionEventName = competitionEventName == null ? null : competitionEventName.trim();
-    }
-
-    public Integer getSuiteType() {
-        return suiteType;
-    }
-
-    public void setSuiteType(Integer suiteType) {
-        this.suiteType = suiteType;
-    }
-
-    public String getRangeCode() {
-        return rangeCode;
-    }
-
-    public void setRangeCode(String rangeCode) {
-        this.rangeCode = rangeCode == null ? null : rangeCode.trim();
-    }
-
-    public Date getPlanStartAt() {
-        return planStartAt;
-    }
-
-    public void setPlanStartAt(Date planStartAt) {
-        this.planStartAt = planStartAt;
-    }
-
-    public Date getPlanEndAt() {
-        return planEndAt;
-    }
-
-    public void setPlanEndAt(Date planEndAt) {
-        this.planEndAt = planEndAt;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy == null ? null : createdBy.trim();
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy == null ? null : updatedBy.trim();
-    }
 }
