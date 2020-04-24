@@ -1,6 +1,7 @@
 package cn.edu.sdu.ise.labs.dao;
 
 import cn.edu.sdu.ise.labs.model.CompetitionEvent;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @author jzhy36
@@ -37,4 +38,12 @@ public interface CompetitionEventMapper {
      * @return
      */
     int updateByPrimaryKey(CompetitionEvent record);
+
+    /**
+     * 根据场地编码查询记录条数
+     *
+     * @param rangeCode
+     * @return
+     */
+    Integer countByRangeCode(@Param("rangeCode") String rangeCode);
 }

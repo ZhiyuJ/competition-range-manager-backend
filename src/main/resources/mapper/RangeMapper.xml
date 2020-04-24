@@ -18,16 +18,21 @@
     id, range_code, range_name, range_location, status, close_reason, description, created_at, 
     updated_at, created_by, updated_by
   </sql>
+    <!-- 根据主键查询记录 -->
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from range
         where id = #{id,jdbcType=INTEGER}
     </select>
+
+    <!-- 根据主键删除记录 -->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from range
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
+    <!-- 新增记录 -->
     <insert id="insert" parameterType="cn.edu.sdu.ise.labs.model.Range">
     insert into range (id, range_code, range_name, 
       range_location, status, close_reason, 
@@ -39,6 +44,7 @@
       #{createdBy,jdbcType=VARCHAR}, #{updatedBy,jdbcType=VARCHAR})
   </insert>
 
+    <!-- 根据主键更新记录 -->
     <update id="updateByPrimaryKey" parameterType="cn.edu.sdu.ise.labs.model.Range">
     update range
     set range_code = #{rangeCode,jdbcType=VARCHAR},
@@ -55,11 +61,65 @@
   </update>
 
     <!-- 获取场地详情 -->
-    <select id="listByCode" resultMap="BaseResultMap">
+    <select id="getByCode" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from range
-        where
-        range_code=#{rangeCode}
+        <where>
+            range_code like #{rangeCode}
+        </where>
     </select>
+
+    <!-- 获取场地列表(分页) -->
+    <select id="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from range
+        <where>
+            <if test="queryDTO.rangeCode != null">
+                range_code like #{queryDTO.rangeCode}
+            </if>
+            <if test="queryDTO.rangeLocation != null">
+                range_location like #{queryDTO.rangeLocation}
+            </if>
+            <if test="queryDTO.status != null">
+                status like #{queryDTO.status}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!-- 根据场地代码查询场地列表 -->
+    <select id="listByRangeCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from range
+        <where>
+            range_code like #{rangeCode}
+        </where>
+    </select>
+
+    <!-- 根据记录条数 -->
+    <select id="count" resultType="integer">
+        select count(*)
+        from range
+        <where>
+            <if test="queryDTO.rangeCode != null">
+                range_code like #{queryDTO.rangeCode}
+            </if>
+            <if test="queryDTO.rangeLocation != null">
+                range_location like #{queryDTO.rangeLocation}
+            </if>
+            <if test="queryDTO.status != null">
+                status like #{queryDTO.status}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据场地代码删除场地 -->
+    <delete id="deleteByCode">
+        delete
+        from range
+        where range_code = #{rangeCode}
+    </delete>
 </mapper>

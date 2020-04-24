@@ -9,9 +9,19 @@ import lombok.Data;
 @Data
 public class RangeQueryDTO {
     /**
-     * 部门名称，模糊匹配
+     * 场地名称
      */
-    private String departmentName;
+    private String rangeName;
+
+    /**
+     * 场地位置
+     */
+    private String rangeLocation;
+
+    /**
+     * 状态
+     */
+    private Integer status;
 
     /**
      * 页码

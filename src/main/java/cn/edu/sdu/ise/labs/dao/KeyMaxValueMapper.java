@@ -9,6 +9,14 @@ import org.apache.ibatis.annotations.Param;
  * @Date: Created on 2019/5/11
  */
 public interface KeyMaxValueMapper {
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(KeyMaxValue record);
+
+    KeyMaxValue selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKey(KeyMaxValue record);
+
     /**
      * 根据前缀查询当前值
      *
