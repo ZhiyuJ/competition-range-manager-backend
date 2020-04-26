@@ -21,7 +21,6 @@ public class SystemController {
 
     @GetMapping("login")
     public ResultContext login(String workCode, String password) {
-
         Token token = tokenService.login(workCode, password);
         return ResultContext.returnSuccess(token);
     }

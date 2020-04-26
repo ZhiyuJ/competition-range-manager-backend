@@ -45,10 +45,13 @@ public class RangeServiceImpl implements RangeService {
      */
     @Override
     public RangeVO getRange(String rangeCode) {
+        // 对请求的合法性进行判断
         if (rangeCode == null) {
             throw new RuntimeException("请输入场地编码");
         }
+        //到这里可以开始实现功能
         Range range = rangeMapper.getByCode(rangeCode);
+        // 返回的是range表中符合条件的全部字段，但返回对象必须是一个VO类，所以可以使用工具类里的转换方法
         return RangeUtils.convertToVO(range);
     }
 
@@ -69,6 +72,7 @@ public class RangeServiceImpl implements RangeService {
         if (queryDTO.getRangeLocation() != null) {
             queryDTO.setRangeLocation(FormatUtils.makeFuzzySearchTerm(queryDTO.getRangeLocation()));
         }
+        // 查询有多少条满足查询条件的记录
         Integer size = rangeMapper.count(queryDTO);
         PageUtils pageUtils = new PageUtils(queryDTO.getPage(), queryDTO.getPageSize(), size);
         Page<RangeVO> pageData = new Page<>(pageUtils.getPage(), pageUtils.getPageSize(), pageUtils.getTotal(), new ArrayList<>());
@@ -94,7 +98,8 @@ public class RangeServiceImpl implements RangeService {
     public String addRange(RangeDTO rangeDTO) {
         // 校验输入数据正确性
         RangeUtils.validateRange(rangeDTO);
-        List<Range> rangeList = rangeMapper.listByRangeCode(rangeDTO.getRangeCode());
+        // 唯一性检验，先查询是否有记录数
+        List<Range> rangeList = rangeMapper.listByRangeName(rangeDTO.getRangeName());
         if (rangeList.size() > 0) {
             //这里是否可用Assert代替（后续测试一下）
             throw new RuntimeException("场地名称已经存在");
@@ -107,6 +112,9 @@ public class RangeServiceImpl implements RangeService {
             range.setRangeCode(keyMaxValueService.generateBusinessCode(PrefixConstant.RANGE));
             // 将token相关信息填入range对象
             TokenContextHolder.formatInsert(range);
+            Date date = new Date();
+            range.setCreatedAt(date);
+            range.setUpdatedAt(date);
             // 调用DAO方法保存到数据库表
             rangeMapper.insert(range);
             // 返回场地编码
@@ -124,9 +132,9 @@ public class RangeServiceImpl implements RangeService {
      */
     @Override
     public String updateRange(RangeDTO rangeDTO) {
+        Token token = TokenContextHolder.getToken();
         // 校验输入数据的正确性
         RangeUtils.validateRange(rangeDTO);
-        Token token = TokenContextHolder.getToken();
         Assert.hasText(rangeDTO.getRangeCode(), "场地编码不能为空");
         Range range = rangeMapper.getByCode(rangeDTO.getRangeCode());
         Assert.notNull(range, "未找到场地，编码为：" + rangeDTO.getRangeCode());

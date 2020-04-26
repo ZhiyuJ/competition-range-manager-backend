@@ -11,5 +11,4 @@ public class PrefixConstant {
     public static final String DEPARTMENT = "DP";
     public static final String TEACHER = "TE";
     public static final String RANGE = "RG";
-
 }

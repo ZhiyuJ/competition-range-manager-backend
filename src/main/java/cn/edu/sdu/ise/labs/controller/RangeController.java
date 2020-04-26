@@ -16,6 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("range")
 public class RangeController {
+    /**
+     * 注入rangeService服务对象
+     */
     @Autowired
     private RangeService rangeService;
 

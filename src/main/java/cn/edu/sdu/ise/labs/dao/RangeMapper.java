@@ -3,12 +3,14 @@ package cn.edu.sdu.ise.labs.dao;
 import cn.edu.sdu.ise.labs.dto.RangeQueryDTO;
 import cn.edu.sdu.ise.labs.model.Range;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
  * @author jzhy36
  */
+@Component(value = "rangeMapper")
 public interface RangeMapper {
     /**
      * 删除记录
@@ -43,7 +45,7 @@ public interface RangeMapper {
     int updateByPrimaryKey(Range record);
 
     /**
-     * 1.2.1根据场地编码获取场地详情
+     * 根据场地编码获取场地详情
      *
      * @param rangeCode
      * @return
@@ -64,13 +66,13 @@ public interface RangeMapper {
             @Param("limit") Integer limit);
 
     /**
-     * 根据场地编码获取场地详情
+     * 根据场地名称获取场地详情
      *
-     * @param rangeCode 场地代码
+     * @param rangeName 场地代码
      * @return 场地详情
      */
-    List<Range> listByRangeCode(
-            @Param("rangeCode") String rangeCode);
+    List<Range> listByRangeName(
+            @Param("rangeName") String rangeName);
 
 
     /**

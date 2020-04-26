@@ -2,10 +2,12 @@ package cn.edu.sdu.ise.labs.dao;
 
 import cn.edu.sdu.ise.labs.model.CompetitionEvent;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 /**
  * @author jzhy36
  */
+@Component(value = "competitionEventMapper")
 public interface CompetitionEventMapper {
     /**
      * 删除记录
@@ -40,7 +42,8 @@ public interface CompetitionEventMapper {
     int updateByPrimaryKey(CompetitionEvent record);
 
     /**
-     * 根据场地编码查询记录条数
+     * 根据场地编码查询competition_event表中status！=3的记录条数
+     * 用来判断是否满足删除条件
      *
      * @param rangeCode
      * @return

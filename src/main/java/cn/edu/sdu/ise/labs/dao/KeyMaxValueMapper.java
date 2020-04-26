@@ -2,12 +2,14 @@ package cn.edu.sdu.ise.labs.dao;
 
 import cn.edu.sdu.ise.labs.model.KeyMaxValue;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 /**
  * @Description: 生成各业务表DAO Mapper接口
  * @Author: lishikuan
  * @Date: Created on 2019/5/11
  */
+@Component(value = "keyMaxValueMapper")
 public interface KeyMaxValueMapper {
     int deleteByPrimaryKey(Integer id);
 

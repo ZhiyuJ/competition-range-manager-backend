@@ -50,6 +50,7 @@ public class RangeUtils {
      * @param rangeDTO
      */
     public static void validateRange(RangeDTO rangeDTO) {
+        // 输入参数首先调用trim()方法处理去掉两边的空格或者制表符
         FormatUtils.trimFieldToNull(rangeDTO);
         Assert.notNull(rangeDTO, "场地输入数据不能为空");
         if (rangeDTO.getStatus() == closeStatus) {

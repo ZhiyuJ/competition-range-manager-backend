@@ -89,13 +89,13 @@
         limit #{offset}, #{limit}
     </select>
 
-    <!-- 根据场地代码查询场地列表 -->
-    <select id="listByRangeCode" resultMap="BaseResultMap">
+    <!-- 根据场地名称查询场地列表 -->
+    <select id="listByRangeName" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from range
         <where>
-            range_code like #{rangeCode}
+            range_name like #{rangeName}
         </where>
     </select>
 

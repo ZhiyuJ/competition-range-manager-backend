@@ -49,7 +49,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
         converters.add(fastJsonHttpMessageConverter);
     }
 
-    // 跨域配置
+    /**
+     * 跨域配置
+     *
+     * @param registry
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")

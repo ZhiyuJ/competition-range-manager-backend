@@ -3,6 +3,7 @@ package cn.edu.sdu.ise.labs.dao;
 import cn.edu.sdu.ise.labs.dto.DepartmentQueryDTO;
 import cn.edu.sdu.ise.labs.model.Department;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
  * @author 李洪文
  * @date 2019/11/14 10:38
  */
+@Component(value = "departmentMapper")
 public interface DepartmentMapper {
     /**
      * 新增记录

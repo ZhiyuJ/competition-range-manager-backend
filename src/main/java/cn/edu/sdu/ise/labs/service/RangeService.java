@@ -50,6 +50,7 @@ public interface RangeService {
     /**
      * 1、根据场地编码查询competition_event表中status！=3的记录，如果有记录，则报错“该场地已经被比赛使用，不能删除”
      * 2、根据场地代码，删除场地记录信息
+     * 3、这里输入的是场地编码列表，应该是为了可以实现批量删除的功能。
      *
      * @param rangeCodes
      * @return
