@@ -1,6 +1,7 @@
 package cn.edu.sdu.ise.labs.service.impl;
 
 import cn.edu.sdu.ise.labs.constant.PrefixConstant;
+import cn.edu.sdu.ise.labs.dao.CompetitionEventMapper;
 import cn.edu.sdu.ise.labs.dao.RangeMapper;
 import cn.edu.sdu.ise.labs.dto.RangeDTO;
 import cn.edu.sdu.ise.labs.dto.RangeQueryDTO;
@@ -22,6 +23,7 @@ import org.springframework.util.Assert;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 实现接口
@@ -37,8 +39,14 @@ public class RangeServiceImpl implements RangeService {
     @Autowired
     private KeyMaxValueService keyMaxValueService;
 
+    @Autowired
+    private CompetitionEventMapper competitionEventMapper;
+
+    private static final int closeReason = 2;
+
     /**
      * 根据检索条件查询场地表(range)，返回结果记录
+     * (没有用到的方法)
      *
      * @param rangeCode
      * @return RangeVO
@@ -50,6 +58,7 @@ public class RangeServiceImpl implements RangeService {
             throw new RuntimeException("请输入场地编码");
         }
         //到这里可以开始实现功能
+        rangeCode = FormatUtils.makeFuzzySearchTerm(rangeCode);
         Range range = rangeMapper.getByCode(rangeCode);
         // 返回的是range表中符合条件的全部字段，但返回对象必须是一个VO类，所以可以使用工具类里的转换方法
         return RangeUtils.convertToVO(range);
@@ -72,6 +81,7 @@ public class RangeServiceImpl implements RangeService {
         if (queryDTO.getRangeLocation() != null) {
             queryDTO.setRangeLocation(FormatUtils.makeFuzzySearchTerm(queryDTO.getRangeLocation()));
         }
+        Token token = TokenContextHolder.getToken();
         // 查询有多少条满足查询条件的记录
         Integer size = rangeMapper.count(queryDTO);
         PageUtils pageUtils = new PageUtils(queryDTO.getPage(), queryDTO.getPageSize(), size);
@@ -138,32 +148,76 @@ public class RangeServiceImpl implements RangeService {
         Assert.hasText(rangeDTO.getRangeCode(), "场地编码不能为空");
         Range range = rangeMapper.getByCode(rangeDTO.getRangeCode());
         Assert.notNull(range, "未找到场地，编码为：" + rangeDTO.getRangeCode());
-
-        BeanUtils.copyProperties(rangeDTO, range);
-        range.setUpdatedBy(token.getTenantCode());
-        range.setUpdatedAt(new Date());
-        rangeMapper.updateByPrimaryKey(range);
-        return range.getRangeCode();
+        List<Range> rangeList = rangeMapper.listByRangeName(rangeDTO.getRangeName());
+        if (rangeDTO.getStatus() == closeReason) {
+            BeanUtils.copyProperties(rangeDTO, range);
+            range.setUpdatedBy(token.getTenantCode());
+            range.setUpdatedAt(new Date());
+            rangeMapper.updateByPrimaryKey(range);
+            return range.getRangeCode();
+        } else {
+            if (rangeList.size() > 0) {
+                throw new RuntimeException("场地名称已经存在");
+            } else {
+                BeanUtils.copyProperties(rangeDTO, range);
+                range.setUpdatedBy(token.getTenantCode());
+                range.setUpdatedAt(new Date());
+                rangeMapper.updateByPrimaryKey(range);
+                return range.getRangeCode();
+            }
+        }
     }
 
     /**
      * 1、根据场地编码查询competition_event表中status！=3的记录，如果有记录，则报错“该场地已经被比赛使用，不能删除”
      * 2、根据场地代码，删除场地记录信息
      *
-     * @param rangeCode
+     * @param rangeCodes
      * @return 记录数
      */
     @Override
     public int deleteRange(List<String> rangeCodes) {
         Assert.notEmpty(rangeCodes, "场地编码列表不能为空");
         Token token = TokenContextHolder.getToken();
+        int deleteNum = 0;
+        for (int i = 0; i < rangeCodes.size(); i++) {
+            String rangeCode = rangeCodes.get(i);
+            Integer rangeNum = competitionEventMapper.countByRangeCode(rangeCode);
+            if (rangeNum > 0) {
+                throw new RuntimeException("该场地已经被比赛使用，不能删除");
+            }
+            List<Range> rangeList = rangeMapper.listByCode(rangeCode);
+            if (rangeList.size() > 0) {
+                rangeMapper.deleteByCode(rangeCode);
+                deleteNum = deleteNum + 1;
+            } else {
+                throw new RuntimeException("该场地编码: " + rangeCode + " 不存在，请重新输入");
+            }
+        }
+        return deleteNum;
         /*
         生成流：rangeCodes.stream()
         中间操作：.map(RangeUtils::delete)
         终端操作：.count()
          */
-        return (int) rangeCodes.stream()
-                .map(RangeUtils::delete)
-                .count();
+//        return (int) rangeCodes.stream()
+//                .map(RangeUtils::delete)
+//                .count();
+    }
+
+    /**
+     * 根据场地编码获取下拉列表
+     *
+     * @param rangeCode 场地编码（模糊匹配）
+     * @return 场地详情
+     */
+    @Override
+    public List<RangeVO> listByCode(String rangeCode) {
+        Token token = TokenContextHolder.getToken();
+        rangeCode = FormatUtils.makeFuzzySearchTerm(rangeCode);
+        List<Range> rangeList = rangeMapper.listByCode(rangeCode);
+        return rangeList.stream()
+                .map(item -> RangeUtils.convertToVO(item))
+                .collect(Collectors.toList());
     }
 }

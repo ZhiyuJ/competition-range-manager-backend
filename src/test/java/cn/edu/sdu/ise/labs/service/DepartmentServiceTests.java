@@ -37,6 +37,7 @@ public class DepartmentServiceTests {
         DepartmentQueryDTO queryDTO = new DepartmentQueryDTO();
         queryDTO.setPage(1);
         queryDTO.setPageSize(10);
+        queryDTO.setDepartmentName("通信所");
         Page<DepartmentVO> pageData = departmentService.listByPage(queryDTO);
         assert pageData.getList().size() > 0;
     }
@@ -46,8 +47,8 @@ public class DepartmentServiceTests {
         initToken();
         DepartmentDTO departmentDTO = new DepartmentDTO();
         departmentDTO.setDepartmentName("通信所");
-        departmentDTO.setContact("张三");
-        departmentDTO.setContactPhone("1532384234234");
+        departmentDTO.setContact("李四");
+        departmentDTO.setContactPhone("PG12138");
         departmentDTO.setDescription("这是一条备注");
         assert departmentService.addDepartment(departmentDTO) != null;
     }
@@ -65,8 +66,8 @@ public class DepartmentServiceTests {
     public void testListByName() {
         initToken();
         List<String> codeList = new ArrayList<>();
-        codeList.add("DP1912030006");
-        List<DepartmentVO> list = departmentService.listByName("心");
+        codeList.add("DP2004260008");
+        List<DepartmentVO> list = departmentService.listByName("通信所");
         assert list.size() != 0;
     }
 
@@ -81,6 +82,16 @@ public class DepartmentServiceTests {
         departmentDTO.setContactPhone("1532384234234");
         departmentDTO.setDescription("这是一条备注");
         assert departmentService.addDepartment(departmentDTO) != null;
+    }
+
+    @Test
+    public void delete() {
+        initToken();
+        List<String> codeList = new ArrayList<>();
+        codeList.add("DP2004260007");
+        codeList.add("DP2004260006");
+        departmentService.deleteByCodes(codeList);
+
     }
 
     private void initToken() {

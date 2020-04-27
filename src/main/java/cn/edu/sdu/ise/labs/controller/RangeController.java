@@ -23,8 +23,8 @@ public class RangeController {
     private RangeService rangeService;
 
     @GetMapping("get")
-    public ResultContext getRange(String rangeCode) {
-        return ResultContext.returnSuccess(rangeService.getRange(rangeCode));
+    public ResultContext listByCode(String rangeCode) {
+        return ResultContext.returnSuccess(rangeService.listByCode(rangeCode));
     }
 
     @PostMapping("list")

@@ -14,6 +14,7 @@ import java.util.List;
 public interface RangeService {
     /**
      * 根据检索条件查询场地表(range)，返回结果记录
+     * (没有用到的抽象方法)
      *
      * @param rangeCode
      * @return RangeVO
@@ -58,4 +59,11 @@ public interface RangeService {
     int deleteRange(List<String> rangeCodes);
 
 
+    /**
+     * 根据场地编码获取下拉列表
+     *
+     * @param rangeCode 场地编码（模糊匹配）
+     * @return 场地详情
+     */
+    List<RangeVO> listByCode(String rangeCode);
 }

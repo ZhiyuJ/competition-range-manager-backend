@@ -37,6 +37,7 @@ public class RangeUtils {
 
     public static String delete(String rangeCode) {
         Integer rangeNum = competitionEventMapperNew.countByRangeCode(rangeCode);
+        System.out.println(rangeNum);
         if (rangeNum > 0) {
             throw new RuntimeException("该场地已经被比赛使用，不能删除");
         }
