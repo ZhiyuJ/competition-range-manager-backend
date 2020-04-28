@@ -45,8 +45,9 @@ public class RangeServiceTests {
         RangeQueryDTO queryDTO = new RangeQueryDTO();
         queryDTO.setPage(1);
         queryDTO.setPageSize(10);
-        queryDTO.setRangeName("田径运动场");
-        queryDTO.setRangeLocation("山东大学威海");
+//        queryDTO.setRangeName("乒乓球");
+//        queryDTO.setRangeLocation("山东大学威海");
+        queryDTO.setStatus(2);
         Page<RangeVO> pageDate = rangeService.listRange(queryDTO);
         assert pageDate.getList().size() > 0;
 
@@ -56,7 +57,7 @@ public class RangeServiceTests {
     public void testAdd() {
         initToken();
         RangeDTO rangeDTO = new RangeDTO();
-        rangeDTO.setRangeName("篮球场2");
+        rangeDTO.setRangeName("乒乓球场4");
         rangeDTO.setRangeLocation("山东大学青岛");
         rangeDTO.setStatus(1);
 //        rangeDTO.setCloseReason("我就是想关闭");
@@ -66,13 +67,14 @@ public class RangeServiceTests {
 
     }
 
+
     @Test
     public void testUpdate() {
         initToken();
         RangeDTO rangeDTO = new RangeDTO();
-        rangeDTO.setRangeCode("RG2004260001");
-        rangeDTO.setRangeName("田径运动场");
-        rangeDTO.setRangeLocation("山东大学威海");
+        rangeDTO.setRangeCode("RG2004270015");
+        rangeDTO.setRangeName("乒乓球场5");
+        rangeDTO.setRangeLocation("山东大学青岛");
         rangeDTO.setStatus(2);
         rangeDTO.setCloseReason("因为下雨了");
         rangeDTO.setDescription("这是测试更新接口的备注");
@@ -85,13 +87,13 @@ public class RangeServiceTests {
         initToken();
         List<String> rangeCodes = new ArrayList<>();
 //        rangeCodes.add("RG2004260003");
-        rangeCodes.add("RG2004270009");
-        rangeCodes.add("RG2004270010");
-        rangeCodes.add("RG2004270007");
-        rangeCodes.add("RG2004270008");
+        rangeCodes.add("RG2004270012");
+        rangeCodes.add("RG2004270015");
 //        int deleteNum = rangeService.deleteRange(rangeCodes);
 
-        System.out.println(rangeService.deleteRange(rangeCodes));
+        int deleteNum = rangeService.deleteRange(rangeCodes);
+        System.out.println(deleteNum);
+        assert deleteNum > 0;
     }
 
     @Test
@@ -99,7 +101,7 @@ public class RangeServiceTests {
         initToken();
         List<String> codeList = new ArrayList<>();
         codeList.add("123");
-        List<RangeVO> list = rangeService.listByCode("RG2004260003");
+        List<RangeVO> list = rangeService.listByCode("RG2004270013");
         assert list.size() > 0;
     }
 

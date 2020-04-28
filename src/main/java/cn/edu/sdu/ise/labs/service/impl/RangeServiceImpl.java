@@ -195,14 +195,6 @@ public class RangeServiceImpl implements RangeService {
             }
         }
         return deleteNum;
-        /*
-        生成流：rangeCodes.stream()
-        中间操作：.map(RangeUtils::delete)
-        终端操作：.count()
-         */
-//        return (int) rangeCodes.stream()
-//                .map(RangeUtils::delete)
-//                .count();
     }
 
     /**

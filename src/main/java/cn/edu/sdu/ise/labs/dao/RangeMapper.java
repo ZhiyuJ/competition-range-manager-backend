@@ -102,12 +102,4 @@ public interface RangeMapper {
      */
     List<Range> listByCode(
             @Param("rangeCode") String rangeCode);
-
-    /**
-     * 根据场地编码获取命中个数
-     *
-     * @param rangeCode
-     * @return 命中个数
-     */
-    Integer countByRangeCode(@Param("rangeCode") String rangeCode);
 }
