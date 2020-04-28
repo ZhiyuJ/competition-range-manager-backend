@@ -45,8 +45,8 @@ public class RangeServiceTests {
         RangeQueryDTO queryDTO = new RangeQueryDTO();
         queryDTO.setPage(1);
         queryDTO.setPageSize(10);
-//        queryDTO.setRangeName("乒乓球");
-//        queryDTO.setRangeLocation("山东大学威海");
+        queryDTO.setRangeName("乒乓球");
+        queryDTO.setRangeLocation("山东大学威海");
         queryDTO.setStatus(2);
         Page<RangeVO> pageDate = rangeService.listRange(queryDTO);
         assert pageDate.getList().size() > 0;
