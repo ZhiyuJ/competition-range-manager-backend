@@ -28,21 +28,33 @@ public class RangeController {
     }
 
     @PostMapping("list")
+    /**
+     * 调用分页查询接口
+     */
     public ResultContext listRange(@RequestBody RangeQueryDTO rangeQueryDTO) {
         return ResultContext.returnSuccess(rangeService.listRange(rangeQueryDTO));
     }
 
     @PostMapping("add")
+    /**
+     * 调用增加接口
+     */
     public ResultContext addRange(@RequestBody RangeDTO rangeDTO) {
         return ResultContext.returnSuccess(rangeService.addRange(rangeDTO));
     }
 
     @PostMapping("update")
+    /**
+     * 调用修改接口
+     */
     public ResultContext updateRange(@RequestBody RangeDTO rangeDTO) {
         return ResultContext.returnSuccess(rangeService.updateRange(rangeDTO));
     }
 
     @PostMapping("delete")
+    /**
+     * 调用删除接口
+     */
     public ResultContext deleteRange(@RequestBody List<String> rangeCodes) {
         return ResultContext.returnSuccess(rangeService.deleteRange(rangeCodes));
     }

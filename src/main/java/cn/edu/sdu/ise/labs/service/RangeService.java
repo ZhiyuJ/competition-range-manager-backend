@@ -12,14 +12,6 @@ import java.util.List;
  * @create 2020-04-12 10:52
  */
 public interface RangeService {
-    /**
-     * 根据检索条件查询场地表(range)，返回结果记录
-     * (没有用到的抽象方法)
-     *
-     * @param rangeCode
-     * @return RangeVO
-     */
-    RangeVO getRange(String rangeCode);
 
     /**
      * 根据检索条件查询场地表（range），返回结果记录列表

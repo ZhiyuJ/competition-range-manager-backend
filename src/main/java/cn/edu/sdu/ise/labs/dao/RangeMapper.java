@@ -38,6 +38,7 @@ public interface RangeMapper {
 
     /**
      * 根据主键更新记录
+     * 在修改场地接口实现的时候，进行修改记录
      *
      * @param record
      * @return
@@ -46,7 +47,7 @@ public interface RangeMapper {
 
     /**
      * 根据场地编码获取场地详情
-     * (没有用到的抽象方法)
+     * 用于在修改场地时，检验是否有这个场地编码
      *
      * @param rangeCode
      * @return
@@ -55,6 +56,7 @@ public interface RangeMapper {
 
     /**
      * 根据查询条件获取场地列表
+     * 分页查询接口使用
      *
      * @param queryDTO 查询条件
      * @param offset   开始位置
@@ -66,18 +68,10 @@ public interface RangeMapper {
             @Param("offset") Integer offset,
             @Param("limit") Integer limit);
 
-    /**
-     * 根据场地名称获取场地详情
-     *
-     * @param rangeName 场地代码
-     * @return 场地详情
-     */
-    List<Range> listByRangeName(
-            @Param("rangeName") String rangeName);
-
 
     /**
      * 根据查询条件获取命中个数
+     * 在分页查询接口里使用
      *
      * @param queryDTO
      * @return 命中个数
@@ -87,6 +81,7 @@ public interface RangeMapper {
 
     /**
      * 根据rangeCode删除记录，并返回删除记录数
+     * 在删除场地接口里，真正实现对数据的删除
      *
      * @param rangeCode
      * @return
@@ -102,4 +97,17 @@ public interface RangeMapper {
      */
     List<Range> listByCode(
             @Param("rangeCode") String rangeCode);
+
+
+    /**
+     * 根据场地名称获取记录条数
+     * 用于新建场地时，校验场地名称唯一性
+     *
+     * @param rangeName 场地名称
+     * @return 记录条数
+     */
+    Integer countByRangeName(
+            @Param("rangeName") String rangeName);
+
+
 }

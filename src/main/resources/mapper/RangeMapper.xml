@@ -89,16 +89,6 @@
         limit #{offset}, #{limit}
     </select>
 
-    <!-- 根据场地名称查询场地列表 -->
-    <select id="listByRangeName" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from `range`
-        <where>
-            range_name like #{rangeName}
-        </where>
-    </select>
-
     <!-- 查询记录条数 -->
     <select id="count" resultType="integer">
         select count(*)
@@ -132,5 +122,14 @@
         <if test="rangeCode!=null">
             range_code like #{rangeCode}
         </if>
+    </select>
+
+    <!-- 根据场地名称查询记录条数 -->
+    <select id="countByRangeName" resultType="integer">
+        select count(*)
+        from `range`
+        <where>
+            range_name = #{rangeName}
+        </where>
     </select>
 </mapper>

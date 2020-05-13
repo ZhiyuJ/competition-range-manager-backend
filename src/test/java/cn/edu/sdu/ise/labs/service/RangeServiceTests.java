@@ -31,15 +31,6 @@ public class RangeServiceTests {
 
 
     @Test
-    public void testGetRange() {
-        initToken();
-        String rangeCode = "123";
-//        List<RangeVO> list = rangeService.getRange(rangeCode);
-//        assert list.size() != 0;
-
-    }
-
-    @Test
     public void testListRange() {
         initToken();
         RangeQueryDTO queryDTO = new RangeQueryDTO();
@@ -99,9 +90,7 @@ public class RangeServiceTests {
     @Test
     public void testListByCode() {
         initToken();
-        List<String> codeList = new ArrayList<>();
-        codeList.add("123");
-        List<RangeVO> list = rangeService.listByCode("RG2004270013");
+        List<RangeVO> list = rangeService.listByCode("RG2005130012");
         assert list.size() > 0;
     }
 
